@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>520 Heart Delivery - 专属心意定制</title>
+    <!-- 引入优雅的 Google 字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Noto+Serif+SC:wght@300;500&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f5ede3;
+            --text-dark: #2c2c2c;
+            --text-gray: #8c857e;
+            --heytea-red: #d23838;
+            --heart-pink: #ff8da1;
+            --heart-gold: #ffd700;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: var(--bg-color);
+            font-family: 'Plus Jakarta Sans', 'Noto Serif SC', sans-serif;
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        /* 纸张质感叠加层 */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 999;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* 导航栏 */
+        header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 40px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .logo span {
+            color: var(--heytea-red);
+            font-size: 14px;
+            transform: translateY(-4px);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            font-size: 15px;
+            color: var(--text-gray);
+            font-weight: 400;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--heytea-red);
+        }
+
+        /* 创新下拉配置交互框 */
+        .dropdown-container {
+            position: relative;
+        }
+
+        .dropdown-select {
+            appearance: none;
+            -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(44, 44, 44, 0.1);
+            padding: 10px 36px 10px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-family: inherit;
+            color: var(--text-dark);
+            cursor: pointer;
+            outline: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-select:hover {
+            border-color: var(--heytea-red);
+            background: #fff;
+        }
+
+        .dropdown-container::after {
+            content: '♥';
+            font-size: 12px;
+            color: var(--heytea-red);
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        /* 专属定制按钮 */
+        .customize-btn {
+            background: linear-gradient(135deg, var(--heytea-red), #b52b2b);
+            color: #fff;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(210, 56, 56, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        .customize-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(210, 56, 56, 0.35);
+            background: linear-gradient(135deg, #e04343, #c53030);
+        }
+
+        .heart-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid rgba(44, 44, 44, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background: transparent;
+            color: var(--heytea-red);
+            transition: all 0.3s;
+        }
+
+        .heart-btn:hover {
+            background: #fff;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        /* 主体内容布局 */
+        main {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 8%;
+            position: relative;
+        }
+
+        /* 左侧标语 */
+        .hero-text {
+            max-width: 600px;
+            position: absolute;
+            top: 21%;
+            left: 8%;
+            z-index: 5;
+        }
+
+        .hero-text h1 {
+            font-family: 'Playfair Display', 'Noto Serif SC', serif;
+            font-size: 60px;
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-text h1 span {
+            color: var(--heytea-red);
+            font-weight: 500;
+        }
+
+        .hero-text p.en {
+            font-size: 18px;
+            color: var(--text-gray);
+            margin-bottom: 8px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-text p.zh {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 16px;
+            color: var(--text-gray);
+            font-weight: 400;
+            letter-spacing: 1px;
+            line-height: 1.6;
+        }
+
+        .hero-text p.zh span.name-highlight {
+            color: var(--heytea-red);
+            font-weight: 600;
+            border-bottom: 1.5px dashed var(--heytea-red);
+            padding: 0 4px;
+            margin: 0 2px;
+        }
+
+        /* 侧边步骤指示器 */
+        .step-indicator {
+            position: absolute;
+            left: 8%;
+            top: 52%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-gray);
+            z-index: 5;
+        }
+
+        .step {
+            position: relative;
+            padding-left: 24px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .step.active {
+            color: var(--heytea-red);
+        }
+
+        .step::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: rgba(44, 44, 44, 0.2);
+            transition: all 0.3s;
+        }
+
+        .step.active::before {
+            background-color: var(--heytea-red);
+            box-shadow: 0 0 8px var(--heytea-red);
+        }
+
+        .step-line {
+            position: absolute;
+            left: 2.5px;
+            top: 15px;
+            width: 1px;
+            height: 60px;
+            background: rgba(44, 44, 44, 0.1);
+        }
+
+        .step-line-fill {
+            width: 100%;
+            height: 0%;
+            background: var(--heytea-red);
+            transition: height 0.5s ease;
+        }
+
+        /* 核心动画交互舞台 */
+        .stage {
+            width: 100%;
+            height: 500px;
+            margin-top: 80px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* SVG 角色及连线 */
+        .character-container {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        /* 角色专属名字牌 */
+        .character-name-tag {
+            position: absolute;
+            top: -45px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(210, 56, 56, 0.2);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-family: 'Noto Serif SC', serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-dark);
+            white-space: nowrap;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            animation: tagFloat 3s ease-in-out infinite alternate;
+        }
+
+        .character-name-tag span {
+            color: var(--heytea-red);
+            font-size: 10px;
+        }
+
+        @keyframes tagFloat {
+            0% { transform: translate(-50%, 0px); }
+            100% { transform: translate(-50%, -6px); }
+        }
+
+        /* 手绘男孩包装器 */
+        .boy-wrapper {
+            position: absolute;
+            left: 8%;
+            bottom: 10%;
+            width: 160px;
+            height: 220px;
+        }
+
+        /* 手绘女孩包装器 */
+        .girl-wrapper {
+            position: absolute;
+            right: 8%;
+            bottom: 8%;
+            width: 240px;
+            height: 350px;
+        }
+
+        /* SVG 连线轨道 */
+        .connection-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .heart-track {
+            fill: none;
+            stroke: var(--heytea-red);
+            stroke-width: 1.5;
+            stroke-dasharray: 4, 6;
+            opacity: 0.35;
+        }
+
+        /* 核心中央大爱心 */
+        .central-heart-container {
+            position: absolute;
+            left: 45%;
+            top: 50%;
+            transform: translate(-50%, -45%);
+            z-index: 2;
+            cursor: pointer;
+        }
+
+        .central-heart {
+            width: 190px;
+            height: 190px;
+            background: radial-gradient(circle at 35% 35%, #e85252, #bd2c2c);
+            position: relative;
+            transform: rotate(-45deg);
+            border-radius: 10px 10px 0 0;
+            box-shadow:
+                -15px 15px 35px rgba(189, 44, 44, 0.35),
+                inset -5px -5px 15px rgba(0,0,0,0.15),
+                inset 8px 8px 15px rgba(255,255,255,0.25);
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: drop-shadow(-8px 12px 10px rgba(0,0,0,0.12));
+        }
+
+        .central-heart::before,
+        .central-heart::after {
+            content: "";
+            background: inherit;
+            border-radius: 50%;
+            position: absolute;
+            width: 190px;
+            height: 190px;
+        }
+
+        .central-heart::before {
+            top: -95px;
+            left: 0;
+        }
+
+        .central-heart::after {
+            left: 95px;
+            top: 0;
+        }
+
+        .central-heart-crease {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, transparent 49%, rgba(0,0,0,0.08) 50%, rgba(255,255,255,0.1) 51%, transparent 52%);
+            z-index: 5;
+            border-radius: inherit;
+        }
+
+        /* 动态飞行的爱心粒子 */
+        .flying-heart {
+            position: absolute;
+            pointer-events: none;
+            z-index: 3;
+            transform-origin: center;
+            filter: drop-shadow(0 3px 5px rgba(0,0,0,0.1));
+        }
+
+        /* 底部操作提示 */
+        .footer-controls {
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            width: 100%;
+            padding: 0 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .scroll-hint {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--text-gray);
+        }
+
+        .mouse-icon {
+            width: 22px;
+            height: 36px;
+            border: 1.5px solid var(--text-gray);
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .mouse-wheel {
+            width: 3px;
+            height: 6px;
+            background-color: var(--heytea-red);
+            border-radius: 50%;
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: scrollWheel 1.6s infinite ease-in-out;
+        }
+
+        @keyframes scrollWheel {
+            0% { top: 6px; opacity: 1; }
+            50% { top: 18px; opacity: 0; }
+            100% { top: 6px; opacity: 0; }
+        }
+
+        .circle-arrow {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid rgba(44, 44, 44, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--text-gray);
+        }
+
+        .circle-arrow:hover {
+            border-color: var(--heytea-red);
+            color: var(--heytea-red);
+            transform: translateY(3px);
+            background-color: #fff;
+        }
+
+        /* 碰撞微粒 */
+        .burst-particle {
+            position: absolute;
+            pointer-events: none;
+            z-index: 4;
+            border-radius: 50%;
+        }
+
+        /* 定制姓名弹窗 (Modal) */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(44, 44, 44, 0.4);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: var(--bg-color);
+            border: 1px solid rgba(44, 44, 44, 0.1);
+            padding: 40px;
+            border-radius: 24px;
+            width: 90%;
+            max-width: 440px;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            transform: scale(0.9);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+        }
+
+        .modal-overlay.open .modal-card {
+            transform: scale(1);
+        }
+
+        .modal-card h2 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .modal-card p.subtitle {
+            font-size: 13px;
+            color: var(--text-gray);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 12px;
+            color: var(--text-gray);
+            margin-bottom: 6px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid rgba(44, 44, 44, 0.15);
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: inherit;
+            color: var(--text-dark);
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--heytea-red);
+            background: #fff;
+            box-shadow: 0 0 10px rgba(210, 56, 56, 0.1);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+        }
+
+        .modal-btn.cancel {
+            background: transparent;
+            border: 1px solid rgba(44, 44, 44, 0.15);
+            color: var(--text-dark);
+        }
+
+        .modal-btn.cancel:hover {
+            background: rgba(44, 44, 44, 0.05);
+        }
+
+        .modal-btn.confirm {
+            background: var(--heytea-red);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(210, 56, 56, 0.2);
+        }
+
+        .modal-btn.confirm:hover {
+            background: #be2e2e;
+            box-shadow: 0 6px 20px rgba(210, 56, 56, 0.3);
+        }
+
+        .close-icon {
+            position: absolute;
+            top: 20px; right: 20px;
+            cursor: pointer;
+            color: var(--text-gray);
+            transition: color 0.3s;
+        }
+
+        .close-icon:hover {
+            color: var(--heytea-red);
+        }
+
+        /* 移动端适配 */
+        @media(max-width: 900px) {
+            header { padding: 20px; }
+            .nav-right { gap: 12px; }
+            .nav-links { display: none; }
+            .hero-text { top: 16%; left: 6%; right: 6%; }
+            .hero-text h1 { font-size: 38px; }
+            .central-heart-container { left: 50%; top: 52%; }
+            .central-heart { width: 120px; height: 120px; }
+            .central-heart::before, .central-heart::after { width: 120px; height: 120px; }
+            .central-heart::before { top: -60px; }
+            .central-heart::after { left: 60px; }
+            .boy-wrapper { left: 2%; width: 100px; height: 150px; bottom: 12%; }
+            .girl-wrapper { right: 2%; width: 160px; height: 250px; bottom: 10%; }
+            .step-indicator { display: none; }
+            .footer-controls { padding: 0 24px; bottom: 24px; }
+            .character-name-tag { top: -35px; font-size: 11px; padding: 2px 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部导航 -->
+    <header>
+        <div class="logo">
+            heytea<span>♥</span>
+        </div>
+        <div class="nav-right">
+            <!-- 定制按钮 -->
+            <button class="customize-btn" onclick="openModal()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                </svg>
+                专属定制
+            </button>
+
+            <!-- 心动配置下拉框 -->
+            <div class="dropdown-container">
+                <select class="dropdown-select" id="heartDropdown" onchange="triggerDropdownHearts()">
+                    <option value="" disabled selected>心动配置 ▾</option>
+                    <option value="passionate">炙热红心 (默认)</option>
+                    <option value="healing">治愈粉红 (浪漫)</option>
+                    <option value="sparkling">璀璨星光 (闪烁)</option>
+                    <option value="gold">金色流沙 (绚烂)</option>
+                </select>
+            </div>
+
+            <button class="heart-btn" onclick="fireSingleHeart()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- 主体区域 -->
+    <main>
+        <!-- 诗意标题 -->
+        <div class="hero-text">
+            <h1>520 <span>Heart Delivery</span></h1>
+            <p class="en">Scroll or select to send your love</p>
+            <p class="zh" id="subTitleText">下滑，把爱心送给专属的她</p>
+        </div>
+
+        <!-- 进度条指示 -->
+        <div class="step-indicator">
+            <div class="step active" id="step1">01 / Sending</div>
+            <div class="step-line"><div class="step-line-fill" id="stepFill"></div></div>
+            <div class="step" id="step2" style="margin-top: 50px;">02</div>
+            <div class="step" id="step3" style="margin-top: 35px;">03</div>
+        </div>
+
+        <!-- 动画主舞台 -->
+        <div class="stage">
+            <!-- 背景运动轨道 -->
+            <svg class="connection-svg" id="stageSvg" viewBox="0 0 1200 600" preserveAspectRatio="none">
+                <path id="lovePath" class="heart-track" d="M 180 430 Q 300 480 500 370 T 1030 330" />
+            </svg>
+
+            <!-- 手绘男孩 -->
+            <div class="boy-wrapper">
+                <div class="character-name-tag" id="boyNameTag">男孩 <span>♥</span></div>
+                <svg width="100%" height="100%" viewBox="0 0 160 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M40 210 L60 140 L45 80 L75 80 L90 140 L80 210" stroke="#2c2c2c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="60" cy="50" r="18" stroke="#2c2c2c" stroke-width="2.5" fill="#f5ede3"/>
+                    <path d="M46 42 Q52 32 66 36 Q74 32 76 44" stroke="#2c2c2c" stroke-width="2.5" stroke-linecap="round" fill="#2c2c2c"/>
+                    <path d="M68 85 Q110 75 140 85" stroke="#2c2c2c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M48 85 Q32 110 38 135" stroke="#2c2c2c" stroke-width="2.5" stroke-linecap="round"/>
+                    <circle cx="68" cy="54" r="3" fill="#ff8da1" opacity="0.8"/>
+                    <circle cx="140" cy="85" r="4" fill="none"/>
+                </svg>
+            </div>
+
+            <!-- 纸雕质感大爱心 -->
+            <div class="central-heart-container" id="midHeart" onclick="fireSingleHeart()">
+                <div class="central-heart">
+                    <div class="central-heart-crease"></div>
+                </div>
+            </div>
+
+            <!-- 手绘女孩 -->
+            <div class="girl-wrapper">
+                <div class="character-name-tag" id="girlNameTag">女孩 <span>♥</span></div>
+                <svg width="100%" height="100%" viewBox="0 0 240 350" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M100 170 Q115 150 120 120 Q130 160 140 170 Q160 220 220 270 Q150 280 110 320 Q95 240 100 170" fill="none" stroke="#2c2c2c" stroke-width="2.5" stroke-linejoin="round"/>
+                    <path d="M100 230 C120 260 150 275 200 285" stroke="#2c2c2c" stroke-width="1.5" stroke-dasharray="2,3"/>
+                    <path d="M115 120 Q118 95 116 85" stroke="#2c2c2c" stroke-width="2.5"/>
+                    <path d="M110 50 Q122 52 126 64 C128 72 120 84 114 84" stroke="#2c2c2c" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M112 48 Q85 55 92 80 T80 130 Q105 110 100 84" stroke="#2c2c2c" stroke-width="2.5" fill="#2c2c2c" stroke-linejoin="round"/>
+                    <path d="M88 80 Q65 110 90 140 T65 190 Q110 160 98 120" stroke="#2c2c2c" stroke-width="2" fill="#2c2c2c"/>
+                    <path d="M118 100 Q100 110 112 128" stroke="#2c2c2c" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M118 102 Q105 125 115 130" stroke="#2c2c2c" stroke-width="1.8" stroke-linecap="round"/>
+                    <circle cx="120" cy="65" r="3.5" fill="#ff8da1" opacity="0.8"/>
+                    <circle cx="112" cy="74" r="3" fill="#d23838"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- 底部提示区 -->
+        <div class="footer-controls">
+            <div class="scroll-hint">
+                <div class="mouse-icon"><div class="mouse-wheel"></div></div>
+                <span>向下滚动或下拉框发送爱心</span>
+            </div>
+            <div class="circle-arrow" onclick="fireSingleHeart()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <polyline points="19 12 12 19 5 12"></polyline>
+                </svg>
+            </div>
+        </div>
+    </main>
+
+    <!-- 定制姓名弹窗 -->
+    <div class="modal-overlay" id="nameModal">
+        <div class="modal-card">
+            <div class="close-icon" onclick="closeModal()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </div>
+            <h2>定制 520 专属心意</h2>
+            <p class="subtitle">输入你们的名字，将爱意凝结成浪漫一刻</p>
+
+            <div class="input-group">
+                <label for="boyNameInput">代表男生的姓名</label>
+                <input type="text" id="boyNameInput" placeholder="输入他的姓名 (例如: 志明)" maxlength="12">
+            </div>
+
+            <div class="input-group">
+                <label for="girlNameInput">代表女生的姓名</label>
+                <input type="text" id="girlNameInput" placeholder="输入她的姓名 (例如: 春娇)" maxlength="12">
+            </div>
+
+            <div class="modal-actions">
+                <button class="modal-btn cancel" onclick="closeModal()">取消</button>
+                <button class="modal-btn confirm" onclick="applyCustomNames()">锁定心意</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const lovePath = document.getElementById('lovePath');
+        const stageSvg = document.getElementById('stageSvg');
+        const midHeart = document.getElementById('midHeart');
+        const stepFill = document.getElementById('stepFill');
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
+        const step3 = document.getElementById('step3');
+        const heartDropdown = document.getElementById('heartDropdown');
+        const nameModal = document.getElementById('nameModal');
+
+        // 姓名 DOM 节点
+        const boyNameTag = document.getElementById('boyNameTag');
+        const girlNameTag = document.getElementById('girlNameTag');
+        const subTitleText = document.getElementById('subTitleText');
+        const boyNameInput = document.getElementById('boyNameInput');
+        const girlNameInput = document.getElementById('girlNameInput');
+
+        // 默认名字
+        let boyName = "男孩";
+        let girlName = "女孩";
+
+        let totalHeartsDelivered = 0;
+        let scrollAccumulator = 0;
+        let isDropdownFiring = false;
+
+        const heartThemes = {
+            standard: { color: '#d23838', scale: 1.0, shadow: 'rgba(210, 56, 56, 0.4)' },
+            passionate: { color: '#e60000', scale: 1.1, shadow: 'rgba(230, 0, 0, 0.5)' },
+            healing: { color: '#ff7597', scale: 0.9, shadow: 'rgba(255, 117, 151, 0.4)' },
+            sparkling: { color: '#ff3366', scale: 0.95, shadow: 'rgba(255, 51, 102, 0.6)', burstColor: '#ffeb3b' },
+            gold: { color: '#d4af37', scale: 1.0, shadow: 'rgba(212, 175, 55, 0.5)', burstColor: '#fff7c2' }
+        };
+
+        // 弹窗逻辑
+        function openModal() {
+            boyNameInput.value = boyName === "男孩" ? "" : boyName;
+            girlNameInput.value = girlName === "女孩" ? "" : girlName;
+            nameModal.classList.add('open');
+        }
+
+        function closeModal() {
+            nameModal.classList.remove('open');
+        }
+
+        function applyCustomNames() {
+            const inputBoy = boyNameInput.value.trim();
+            const inputGirl = girlNameInput.value.trim();
+
+            boyName = inputBoy || "男孩";
+            girlName = inputGirl || "女孩";
+
+            // 更新 DOM 姓名
+            boyNameTag.innerHTML = `${boyName} <span>♥</span>`;
+            girlNameTag.innerHTML = `${girlName} <span>♥</span>`;
+
+            // 更新诗意宣言副标题
+            if(inputBoy || inputGirl) {
+                subTitleText.innerHTML = `下滑，把 <span class="name-highlight">${boyName}</span> 的心意，源源不断地送给 <span class="name-highlight">${girlName}</span>`;
+            } else {
+                subTitleText.innerHTML = `下滑，把爱心送给专属的她`;
+            }
+
+            closeModal();
+
+            // 定制成功后爆发豪华星光爱心大喷发
+            celebrateCustomization();
+        }
+
+        // 庆祝定制成功心形喷发
+        function celebrateCustomization() {
+            let burstCount = 0;
+            const celebrateInterval = setInterval(() => {
+                createHeart('sparkling');
+                createHeart('gold');
+                animateMidHeart();
+                burstCount++;
+                if (burstCount >= 15) {
+                    clearInterval(celebrateInterval);
+                }
+            }, 100);
+        }
+
+        // 监听滚轮事件，支持顺滑的爱心连发
+        window.addEventListener('wheel', (e) => {
+            if (e.deltaY > 0) {
+                scrollAccumulator += e.deltaY;
+                if (scrollAccumulator > 30) {
+                    createHeart();
+                    scrollAccumulator = 0;
+                    animateMidHeart();
+                    updateProgress();
+                }
+            }
+        });
+
+        // 兼容移动端滑动手势
+        let touchStartY = 0;
+        window.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        window.addEventListener('touchmove', (e) => {
+            const touchEndY = e.touches[0].clientY;
+            const diff = touchStartY - touchEndY;
+            if (diff > 8) {
+                createHeart();
+                animateMidHeart();
+                updateProgress();
+            }
+        }, { passive: true });
+
+        // 单击触发
+        function fireSingleHeart() {
+            createHeart();
+            animateMidHeart();
+            updateProgress();
+        }
+
+        // 下拉框选择后的惊喜连发
+        function triggerDropdownHearts() {
+            const type = heartDropdown.value;
+            if (!type || isDropdownFiring) return;
+            isDropdownFiring = true;
+
+            let count = 0;
+            const interval = setInterval(() => {
+                createHeart(type);
+                animateMidHeart();
+                updateProgress();
+                count++;
+                if (count >= 12) {
+                    clearInterval(interval);
+                    isDropdownFiring = false;
+                    heartDropdown.value = ""; // 还原下拉
+                }
+            }, 180);
+        }
+
+        // 产生沿着贝塞尔曲线飘动的爱心
+        function createHeart(themeKey = 'standard') {
+            const theme = heartThemes[themeKey] || heartThemes.standard;
+
+            const heartDiv = document.createElement('div');
+            heartDiv.className = 'flying-heart';
+
+            const size = (20 + Math.random() * 20) * theme.scale;
+            heartDiv.style.width = `${size}px`;
+            heartDiv.style.height = `${size}px`;
+
+            heartDiv.innerHTML = `
+                <svg width="100%" height="100%" viewBox="0 0 24 24" fill="${theme.color}">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                </svg>
+            `;
+
+            document.body.appendChild(heartDiv);
+
+            const pathLength = lovePath.getTotalLength();
+            let progress = 0;
+            const speed = 0.007 + Math.random() * 0.005;
+
+            const waveAmplitude = 15 + Math.random() * 25;
+            const waveFrequency = 1.5 + Math.random() * 2;
+            const phaseShift = Math.random() * Math.PI * 2;
+
+            function animate() {
+                if (progress >= 1) {
+                    triggerBurst(heartDiv.offsetLeft, heartDiv.offsetTop, theme.burstColor || theme.color);
+                    heartDiv.remove();
+                    totalHeartsDelivered++;
+                    return;
+                }
+
+                progress += speed;
+
+                const currentLength = progress * pathLength;
+                const pathPoint = lovePath.getPointAtLength(currentLength);
+
+                const svgRect = stageSvg.getBoundingClientRect();
+                const svgWidthRatio = svgRect.width / 1200;
+                const svgHeightRatio = svgRect.height / 600;
+
+                let targetX = svgRect.left + (pathPoint.x * svgWidthRatio);
+                let targetY = svgRect.top + (pathPoint.y * svgHeightRatio);
+
+                const wave = Math.sin(progress * Math.PI * waveFrequency + phaseShift) * waveAmplitude * (1 - progress);
+                targetY += wave;
+
+                heartDiv.style.left = `${targetX - size / 2}px`;
+                heartDiv.style.top = `${targetY - size / 2}px`;
+
+                const rotateAngle = (progress * 360 * 0.5) % 360;
+                heartDiv.style.transform = `rotate(${rotateAngle}deg) scale(${1 - progress * 0.25})`;
+                heartDiv.style.opacity = progress < 0.1 ? progress * 10 : (progress > 0.85 ? (1 - progress) * 6.6 : 1);
+
+                requestAnimationFrame(animate);
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        // 中间大爱心的动态响应反馈
+        function animateMidHeart() {
+            midHeart.style.transform = 'translate(-50%, -45%) scale(1.1)';
+            setTimeout(() => {
+                midHeart.style.transform = 'translate(-50%, -45%) scale(1.0)';
+            }, 200);
+        }
+
+        // 吸入碰撞花瓣粒子特效
+        function triggerBurst(x, y, color) {
+            const particleCount = 6 + Math.floor(Math.random() * 6);
+            for (let i = 0; i < particleCount; i++) {
+                const p = document.createElement('div');
+                p.className = 'burst-particle';
+                const pSize = 4 + Math.random() * 6;
+                p.style.width = `${pSize}px`;
+                p.style.height = `${pSize}px`;
+                p.style.backgroundColor = color;
+                p.style.left = `${x}px`;
+                p.style.top = `${y}px`;
+                p.style.boxShadow = `0 0 8px ${color}`;
+                document.body.appendChild(p);
+
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = 2 + Math.random() * 4;
+                const vx = Math.cos(angle) * velocity;
+                const vy = Math.sin(angle) * velocity - 1;
+                let currentX = x;
+                let currentY = y;
+                let opacity = 1.0;
+
+                function moveParticle() {
+                    if (opacity <= 0.05) {
+                        p.remove();
+                        return;
+                    }
+                    currentX += vx;
+                    currentY += vy;
+                    opacity -= 0.03;
+                    p.style.left = `${currentX}px`;
+                    p.style.top = `${currentY}px`;
+                    p.style.opacity = opacity;
+                    requestAnimationFrame(moveParticle);
+                }
+                requestAnimationFrame(moveParticle);
+            }
+        }
+
+        // 联动更新左侧步骤指示器
+        function updateProgress() {
+            const progressRatio = Math.min(totalHeartsDelivered / 50, 1.0);
+            stepFill.style.height = `${progressRatio * 100}%`;
+
+            if (totalHeartsDelivered >= 30) {
+                step3.classList.add('active');
+                step2.classList.add('active');
+                step1.classList.remove('active');
+            } else if (totalHeartsDelivered >= 12) {
+                step2.classList.add('active');
+                step1.classList.remove('active');
+                step3.classList.remove('active');
+            } else {
+                step1.classList.add('active');
+                step2.classList.remove('active');
+                step3.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>
